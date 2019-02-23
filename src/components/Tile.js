@@ -45,25 +45,25 @@ export default class Tile extends React.Component {
       name,
       specialty,
       greased,
-      ’weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water’: weight,
+      'weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water': weight,
       'highest medal achieved': medal
     } = this.props.hog
 
     return (
-      <div className="ui card eight wide column" onClick={this.toggleClickedState}>
+      <div className="ui raised card eight wide column" onClick={this.toggleClickedState}>
         <div className="image">
           <img alt="" src={imgMapper[name]}/>
         </div>
-        <div class="content">
-          <a class="header">{name}</a>
+        <div className="content">
+          <div className="header">{name}</div>
           {this.state.clicked && <div>
 
 
 
-            <div class="meta">
-              <span class="date"></span>
+            <div className="meta">
+              <span className="date"></span>
             </div>
-            <div class="description">
+            <div className="description">
               Specialty: {specialty}<br/>
             Weight: {weight} lbs<br/>
             {medal}
@@ -73,9 +73,9 @@ export default class Tile extends React.Component {
 
         {this.state.clicked &&
 
-        <div class="extra content">
+        <div className="extra content">
         <a>
-          <i class="icon-user"></i>
+          <i className="icon-user"></i>
           {greased && "GREASED"}
         </a>
       </div>
