@@ -19,14 +19,6 @@ export default class Container extends React.Component {
     }, ()=> this.updateContainerFilter())
   }
 
-
-
-  formatHogsToTiles = () => {
-    return this.state.filteredHogs.map( (hog, index) => {
-      return <Tile hog={hog} key={index}/>
-    })
-  }
-
   handleArrangeType = event => {
     this.setState({
       arrangeBy: event.target.value,
@@ -61,6 +53,13 @@ export default class Container extends React.Component {
   consoleLog = () => {
     console.log(this.state);
   }
+
+  formatHogsToTiles = () => {
+    return this.state.filteredHogs.map( (hog, index) => {
+      return <Tile hog={hog} key={index}/>
+    })
+  }
+
 
   render() {
     return (
