@@ -41,11 +41,12 @@ export default class Tile extends React.Component {
   }
 
   render() {
+    const longJoke = 'weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'
     const {
       name,
       specialty,
       greased,
-      'weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water': weight,
+      [longJoke]: weight,
       'highest medal achieved': medal
     } = this.props.hog
 
@@ -55,20 +56,19 @@ export default class Tile extends React.Component {
           <img alt="" src={imgMapper[name]}/>
         </div>
         <div className="content">
-          <i className="right floated like icon"></i>
-          <i className="right floated star icon"></i>
-          <div className="left floated header">{name}</div>
+              <i className="right floated like icon"></i>
+              <i className="right floated star icon"></i>
+              <div className="left floated header">{name}</div>
+        </div>
           {this.state.clicked &&
-            <div className="ui divided list float left">
+            <div className="content ui divided list">
+              <div className="meta">Specialty: {specialty}</div>
               <div className="description">
-                <i className="trophy icon"></i>Specialty: {specialty}<br/>
                 <i className="fas fa-weight"></i> {weight} lbs<br/>
                 <i className="trophy icon"></i>{medal}
               </div>
             </div>
           } {/* End of state clicked for description text*/}
-        </div>
-
         {this.state.clicked &&
           <div className="extra content">
             <a>

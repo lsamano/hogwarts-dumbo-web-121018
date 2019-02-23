@@ -29,16 +29,40 @@ export default class Container extends React.Component {
   render() {
     return (
       <div className="ui grid container">
-      <input type="text" placeholder="Search by Name..." onChange={this.consoleLog}/>
+
+        <div className="ui right action left icon input">
+  <i className="search icon"></i>
+  <input type="text" placeholder="Search"/>
+  <div className="ui basic floating dropdown button">
+    <div className="text">This Page</div>
+    <i className="dropdown icon"></i>
+    <div className="menu">
+      <div className="item">This Organization</div>
+      <div className="item">Entire Site</div>
+    </div>
+  </div>
+</div>
+
+
+        <div className="ui icon input">
+          <input type="text" placeholder="Search by Name..." onChange={this.consoleLog}/>
+          <i className="search icon"></i>
+        </div>
       <select value={this.state.filterChoice} onChange={this.handleChange}>
         <option value="grapefruit">Grapefruit</option>
         <option value="lime">Lime</option>
         <option selected value="coconut">Coconut</option>
         <option value="mango">Mango</option>
       </select>
-        <div className="ui three cards">
+
+
+
+        <div className="ui four cards">
           {this.formatHogsToTiles()}
         </div>
+
+
+
       </div>
     )
   }
