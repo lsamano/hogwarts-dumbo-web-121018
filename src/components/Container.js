@@ -19,10 +19,14 @@ export default class Container extends React.Component {
   }
 
   handleArrangeType = event => {
+    let rearrangedHogs = this.rearrangeHogs(event.target.value)
+    if (this.state.checked === true) {
+      rearrangedHogs = rearrangedHogs.filter(hog => hog.greased === true)
+    }
     this.setState({
       arrangeBy: event.target.value,
-      filteredHogs: this.rearrangeHogs(event.target.value)
-    }, this.consoleLog)
+      filteredHogs: rearrangedHogs
+    })
   }
 
   updateContainerFilter = () => {
@@ -47,10 +51,6 @@ export default class Container extends React.Component {
     } else if (selectedType === "default") {
       return [...this.state.hogs]
     }
-  }
-
-  consoleLog = () => {
-    console.log(this.state);
   }
 
   formatHogsToTiles = () => {
