@@ -50,39 +50,33 @@ export default class Tile extends React.Component {
     } = this.props.hog
 
     return (
-      <div className="ui raised card eight wide column" onClick={this.toggleClickedState}>
+      <div className="ui raised link card eight wide column" onClick={this.toggleClickedState}>
         <div className="image">
           <img alt="" src={imgMapper[name]}/>
         </div>
         <div className="content">
-          <div className="header">{name}</div>
-          {this.state.clicked && <div>
-
-
-
-            <div className="meta">
-              <span className="date"></span>
+          <i className="right floated like icon"></i>
+          <i className="right floated star icon"></i>
+          <div className="left floated header">{name}</div>
+          {this.state.clicked &&
+            <div className="ui divided list float left">
+              <div className="description">
+                <i className="trophy icon"></i>Specialty: {specialty}<br/>
+                <i className="fas fa-weight"></i> {weight} lbs<br/>
+                <i className="trophy icon"></i>{medal}
+              </div>
             </div>
-            <div className="description">
-              Specialty: {specialty}<br/>
-            Weight: {weight} lbs<br/>
-            {medal}
-            </div>
-          </div>}
+          } {/* End of state clicked for description text*/}
         </div>
 
         {this.state.clicked &&
-
-        <div className="extra content">
-        <a>
-          <i className="icon-user"></i>
-          {greased && "GREASED"}
-        </a>
-      </div>
-        }
-
-
-
+          <div className="extra content">
+            <a>
+              {greased && <span><i className="certificate icon"></i>GREASED</span>}
+            </a>
+          </div>
+        } {/* End of state clicked for greased text*/}
+        {/* End of card*/}
       </div>
     )
   }
