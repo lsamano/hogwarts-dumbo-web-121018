@@ -1,7 +1,6 @@
 import React from 'react';
 import Tile from './Tile';
 import ArrangeBy from './ArrangeBy';
-import Filter from './Filter';
 import hogs from '../porkers_data';
 
 export default class Container extends React.Component {
@@ -41,10 +40,10 @@ export default class Container extends React.Component {
   rearrangeHogs = (selectedType) => {
     const longJoke = 'weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'
     if (selectedType === "name") {
-      const newHogs =  this.state.filteredHogs.sort((a, b) => a[selectedType].localeCompare(b[selectedType]));
+      const newHogs =  [...this.state.hogs].sort((a, b) => a[selectedType].localeCompare(b[selectedType]));
       return newHogs
     } else if (selectedType === "weight") {
-      return this.state.filteredHogs.sort((a, b) => a[longJoke] - b[longJoke]);
+      return [...this.state.hogs].sort((a, b) => a[longJoke] - b[longJoke]);
     } else if (selectedType === "default") {
       return [...this.state.hogs]
     }
@@ -60,11 +59,14 @@ export default class Container extends React.Component {
     })
   }
 
-
   render() {
     return (
       <div>
-        <ArrangeBy handleArrangeType={this.handleArrangeType} handleFilterToggle={this.handleFilterToggle} checked={this.state.checked}/>
+        <ArrangeBy
+          handleArrangeType={this.handleArrangeType}
+          handleFilterToggle={this.handleFilterToggle}
+          checked={this.state.checked}
+          />
         <div className="ui four cards">
           {this.formatHogsToTiles()}
         </div>

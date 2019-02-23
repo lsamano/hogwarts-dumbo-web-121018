@@ -16,7 +16,8 @@ const ArrangeBy = props => {
 
 
 				<div className="inline field">
-					<div className="ui toggle checkbox">
+					<label>Toggle Greased Hogs</label>
+					<div className="ui fluid toggle checkbox">
 						<input type="checkbox" tabIndex="0" checked={props.checked} onChange={props.handleFilterToggle}/>
 						<label>Toggle</label>
 					</div>
