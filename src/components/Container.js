@@ -1,13 +1,25 @@
 import React from 'react';
 import Tile from './Tile';
+import ArrangeBy from './ArrangeBy';
+import Filter from './Filter';
 import hogs from '../porkers_data';
 
 export default class Container extends React.Component {
   state = {
     hogs: hogs,
-    filteredHogs: hogs,
-    filterChoice: "coconut"
+    filteredHogs: [...hogs],
+    arrangeBy: "default",
+    searchTerm: "",
+    checked: false
   }
+
+  handleFilterToggle = event => {
+    this.setState({
+      checked: !this.state.checked
+    }, ()=> this.updateContainerFilter())
+  }
+
+
 
   formatHogsToTiles = () => {
     return this.state.filteredHogs.map( (hog, index) => {
@@ -15,54 +27,49 @@ export default class Container extends React.Component {
     })
   }
 
-  handleChange = event => {
-    // debugger
+  handleArrangeType = event => {
     this.setState({
-      filterChoice: event.target.value
-    })
+      arrangeBy: event.target.value,
+      filteredHogs: this.rearrangeHogs(event.target.value)
+    }, this.consoleLog)
   }
 
-  consoleLog = event => {
+  updateContainerFilter = () => {
+    if (this.state.checked === true) {
+      this.setState({
+        filteredHogs: this.state.filteredHogs.filter(hog => hog.greased === true)
+      })
+    } else {
+      this.setState({
+        filteredHogs: this.rearrangeHogs(this.state.arrangeBy)
+      })
+    }
+  }
+
+  rearrangeHogs = (selectedType) => {
+    const longJoke = 'weight as a ratio of hog to LG - 24.7 Cu. Ft. French Door Refrigerator with Thru-the-Door Ice and Water'
+    if (selectedType === "name") {
+      const newHogs =  this.state.hogs.sort((a, b) => a[selectedType].localeCompare(b[selectedType]));
+      return newHogs
+    } else if (selectedType === "weight") {
+      return this.state.hogs.sort((a, b) => a[longJoke] - b[longJoke]);
+    } else if (selectedType === "default") {
+      return this.state.hogs
+    }
+  }
+
+  consoleLog = () => {
     console.log(this.state);
   }
 
   render() {
     return (
-      <div className="ui grid container">
-
-        <div className="ui right action left icon input">
-  <i className="search icon"></i>
-  <input type="text" placeholder="Search"/>
-  <div className="ui basic floating dropdown button">
-    <div className="text">This Page</div>
-    <i className="dropdown icon"></i>
-    <div className="menu">
-      <div className="item">This Organization</div>
-      <div className="item">Entire Site</div>
-    </div>
-  </div>
-</div>
-
-
-        <div className="ui icon input">
-          <input type="text" placeholder="Search by Name..." onChange={this.consoleLog}/>
-          <i className="search icon"></i>
-        </div>
-      <select value={this.state.filterChoice} onChange={this.handleChange}>
-        <option value="grapefruit">Grapefruit</option>
-        <option value="lime">Lime</option>
-        <option selected value="coconut">Coconut</option>
-        <option value="mango">Mango</option>
-      </select>
-
-
-
+      <div>
+        <ArrangeBy handleArrangeType={this.handleArrangeType}/>
+        <Filter updateContainerFilter={this.handleFilterToggle}/>
         <div className="ui four cards">
           {this.formatHogsToTiles()}
         </div>
-
-
-
       </div>
     )
   }
