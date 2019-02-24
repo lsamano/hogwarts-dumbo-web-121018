@@ -75,6 +75,11 @@ export default class Container extends React.Component {
     }
   }
 
+  dontDoTheThing = event => {
+    event.preventDefault()
+    debugger
+  }
+
   formatHogsToTiles = () => {
     return this.state.filteredHogs.map( (hog, index) => {
       return <Tile hog={hog} key={index}/>
@@ -90,6 +95,7 @@ export default class Container extends React.Component {
           checked={this.state.checked}
           filterbySearchTerm={this.filterbySearchTerm}
           searchTerm={this.state.searchTerm}
+          dontDoTheThing={this.dontDoTheThing}
           />
         <div className="ui four cards">
           {this.formatHogsToTiles()}

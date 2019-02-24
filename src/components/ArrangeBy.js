@@ -2,7 +2,7 @@ import React from 'react';
 
 const ArrangeBy = props => {
 	return (
-    <form className="ui form">
+    <form className="ui form" onSubmit={props.dontDoTheThing}>
       <div className="three fields">
 
         <div className="field">
