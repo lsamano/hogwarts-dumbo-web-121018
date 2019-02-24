@@ -9,7 +9,25 @@ export default class Container extends React.Component {
     filteredHogs: [...hogs],
     arrangeBy: "default",
     searchTerm: "",
-    checked: false
+    checked: false,
+    searchTerm: ""
+  }
+
+  filterbySearchTerm = event => {
+    this.setState({
+      searchTerm: event.target.value
+    }, this.filterTheHogsViaSearch)
+  }
+
+  filterTheHogsViaSearch = () => {
+    let rearrangedHogs = this.rearrangeHogs(this.state.arrangeBy)
+    if (this.state.checked === true) {
+      rearrangedHogs = rearrangedHogs.filter(hog => hog.greased === true)
+    }
+    rearrangedHogs = rearrangedHogs.filter(hog => hog.name.includes(this.state.searchTerm))
+    this.setState({
+      filteredHogs: rearrangedHogs
+    })
   }
 
   handleFilterToggle = event => {
@@ -23,6 +41,7 @@ export default class Container extends React.Component {
     if (this.state.checked === true) {
       rearrangedHogs = rearrangedHogs.filter(hog => hog.greased === true)
     }
+    rearrangedHogs = rearrangedHogs.filter(hog => hog.name.includes(this.state.searchTerm))
     this.setState({
       arrangeBy: event.target.value,
       filteredHogs: rearrangedHogs
@@ -35,8 +54,11 @@ export default class Container extends React.Component {
         filteredHogs: this.state.filteredHogs.filter(hog => hog.greased === true)
       })
     } else {
+      let rearrangedHogs = this.rearrangeHogs(this.state.arrangeBy)
+      .filter(hog => hog.name.includes(this.state.searchTerm))
+
       this.setState({
-        filteredHogs: this.rearrangeHogs(this.state.arrangeBy)
+        filteredHogs: rearrangedHogs
       })
     }
   }
@@ -66,6 +88,8 @@ export default class Container extends React.Component {
           handleArrangeType={this.handleArrangeType}
           handleFilterToggle={this.handleFilterToggle}
           checked={this.state.checked}
+          filterbySearchTerm={this.filterbySearchTerm}
+          searchTerm={this.state.searchTerm}
           />
         <div className="ui four cards">
           {this.formatHogsToTiles()}
